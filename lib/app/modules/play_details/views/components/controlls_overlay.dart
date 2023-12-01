@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:qtec_player/core/size_config.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../controllers/play_details_controller.dart';
@@ -40,7 +41,20 @@ class ControlsOverlayState extends State<ControlsOverlay> {
 
   final controller = Get.put(PlayDetailsController());
 
-  bool pauseGone = false;
+  bool pauseGone = true;
+
+  @override
+  void setState(VoidCallback fn) {
+    if (mounted)
+      super.setState(fn);
+  }
+
+  Future<void> removePauseIcon() async {
+    await Future.delayed(Duration(seconds: 2)).then((value) {
+      pauseGone = true;
+      setState(() { });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +68,8 @@ class ControlsOverlayState extends State<ControlsOverlay> {
             child: Icon(
               pauseGone? null: Icons.pause,
               color: Colors.white,
-              size: 100.0,
-              semanticLabel: 'Play',
+              size: SizeConfig().icon50()*2,
+              semanticLabel: 'Pause',
             ),
           ),)
               : Container(
@@ -64,7 +78,7 @@ class ControlsOverlayState extends State<ControlsOverlay> {
               child: Icon(
                 Icons.play_arrow,
                 color: Colors.white,
-                size: 100.0,
+                size: SizeConfig().icon50()*2,
                 semanticLabel: 'Play',
               ),
             ),
@@ -79,70 +93,121 @@ class ControlsOverlayState extends State<ControlsOverlay> {
             }else{
               widget.pController.play();
               controller.isThumbnail.value = false;
+              removePauseIcon();
+              print("Played dddsdd");
               setState(() {});
-              Future.delayed(Duration(seconds: 2)).then((value){
-                pauseGone = true;
-                setState(() {});
-              });
             }
           },
         ),
-        Align(
-          alignment: Alignment.topLeft,
-          child: PopupMenuButton<Duration>(
-            initialValue: widget.pController.value.captionOffset,
-            tooltip: 'Caption Offset',
-            onSelected: (Duration delay) {
-              widget.pController.setCaptionOffset(delay);
-            },
-            itemBuilder: (BuildContext context) {
-              return <PopupMenuItem<Duration>>[
-                for (final Duration offsetDuration in ControlsOverlay._exampleCaptionOffsets)
-                  PopupMenuItem<Duration>(
-                    value: offsetDuration,
-                    child: Text('${offsetDuration.inMilliseconds}ms'),
-                  )
-              ];
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                // Using less vertical padding as the text is also longer
-                // horizontally, so it feels like it would need more spacing
-                // horizontally (matching the aspect ratio of the video).
-                vertical: 12,
-                horizontal: 16,
-              ),
-              child: Text('${widget.pController.value.captionOffset.inMilliseconds}ms'),
-            ),
-          ),
-        ),
+        // Align(
+        //   alignment: Alignment.topLeft,
+        //   child: PopupMenuButton<Duration>(
+        //     initialValue: widget.pController.value.captionOffset,
+        //     tooltip: 'Caption Offset',
+        //     onSelected: (Duration delay) {
+        //       widget.pController.setCaptionOffset(delay);
+        //     },
+        //     itemBuilder: (BuildContext context) {
+        //       return <PopupMenuItem<Duration>>[
+        //         for (final Duration offsetDuration in ControlsOverlay._exampleCaptionOffsets)
+        //           PopupMenuItem<Duration>(
+        //             value: offsetDuration,
+        //             child: Text('${offsetDuration.inMilliseconds}ms'),
+        //           )
+        //       ];
+        //     },
+        //     child: Padding(
+        //       padding: const EdgeInsets.symmetric(
+        //         // Using less vertical padding as the text is also longer
+        //         // horizontally, so it feels like it would need more spacing
+        //         // horizontally (matching the aspect ratio of the video).
+        //         vertical: 12,
+        //         horizontal: 16,
+        //       ),
+        //       child: Text(
+        //         '${widget.pController.value.captionOffset.inMilliseconds}ms',
+        //         style: TextStyle(
+        //           color: Colors.white,
+        //           fontWeight: FontWeight.bold,
+        //           fontSize: SizeConfig().font28()
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
         Align(
           alignment: Alignment.topRight,
-          child: PopupMenuButton<double>(
-            initialValue: widget.pController.value.playbackSpeed,
-            tooltip: 'Playback speed',
-            onSelected: (double speed) {
-              widget.pController.setPlaybackSpeed(speed);
-            },
-            itemBuilder: (BuildContext context) {
-              return <PopupMenuItem<double>>[
-                for (final double speed in ControlsOverlay._examplePlaybackRates)
-                  PopupMenuItem<double>(
-                    value: speed,
-                    child: Text('${speed}x'),
-                  )
-              ];
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                // Using less vertical padding as the text is also longer
-                // horizontally, so it feels like it would need more spacing
-                // horizontally (matching the aspect ratio of the video).
-                vertical: 12,
-                horizontal: 16,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              PopupMenuButton<Duration>(
+                initialValue: widget.pController.value.captionOffset,
+                tooltip: 'Caption Offset',
+                onSelected: (Duration delay) {
+                  widget.pController.setCaptionOffset(delay);
+                },
+                itemBuilder: (BuildContext context) {
+                  return <PopupMenuItem<Duration>>[
+                    for (final Duration offsetDuration in ControlsOverlay._exampleCaptionOffsets)
+                      PopupMenuItem<Duration>(
+                        value: offsetDuration,
+                        child: Text('${offsetDuration.inMilliseconds}ms'),
+                      )
+                  ];
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    // Using less vertical padding as the text is also longer
+                    // horizontally, so it feels like it would need more spacing
+                    // horizontally (matching the aspect ratio of the video).
+                    vertical: 12,
+                    horizontal: 16,
+                  ),
+                  child: Text(
+                    '${widget.pController.value.captionOffset.inMilliseconds}ms',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: SizeConfig().font28()
+                    ),
+                  ),
+                ),
               ),
-              child: Text('${widget.pController.value.playbackSpeed}x'),
-            ),
+              SizedBox(width: SizeConfig().icon15(),),
+              PopupMenuButton<double>(
+                initialValue: widget.pController.value.playbackSpeed,
+                tooltip: 'Playback speed',
+                onSelected: (double speed) {
+                  widget.pController.setPlaybackSpeed(speed);
+                },
+                itemBuilder: (BuildContext context) {
+                  return <PopupMenuItem<double>>[
+                    for (final double speed in ControlsOverlay._examplePlaybackRates)
+                      PopupMenuItem<double>(
+                        value: speed,
+                        child: Text('${speed}x'),
+                      )
+                  ];
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    // Using less vertical padding as the text is also longer
+                    // horizontally, so it feels like it would need more spacing
+                    // horizontally (matching the aspect ratio of the video).
+                    vertical: 12,
+                    horizontal: 16,
+                  ),
+                  child: Text(
+                    '${widget.pController.value.playbackSpeed}x',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: SizeConfig().font28()
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ],

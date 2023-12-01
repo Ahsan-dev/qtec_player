@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:qtec_player/app/modules/play_details/controllers/play_details_controller.dart';
+import 'package:qtec_player/core/size_config.dart';
 import 'package:video_player/video_player.dart';
 
 import 'controlls_overlay.dart';
@@ -27,7 +29,24 @@ class PlayerBox extends GetView<PlayDetailsController> {
               ControlsOverlay(pController: controller.playerController,),
               controller.isThumbnail.value?
                 Container():
-                VideoProgressIndicator(controller.playerController, allowScrubbing: true)
+                VideoProgressIndicator(controller.playerController, allowScrubbing: true),
+              Align(
+                alignment: Alignment.topLeft,
+                child: InkWell(
+                  onTap: (){
+                    Get.back();
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: SizeConfig().icon15(),
+                      horizontal: SizeConfig().icon15(),
+                    ),
+                    child: SvgPicture.asset(
+                      "assets/icons/back_btn.svg"
+                    )
+                  ),
+                ),
+              )
             ],
           ))),
     );

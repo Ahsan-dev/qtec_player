@@ -20,7 +20,14 @@ class CommentsSection extends GetView<PlayDetailsController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Comments   ${controller.video.viewers}"),
+              Text(
+                "Comments   ${controller.video.viewers}",
+                style: TextStyle(
+                  fontSize: SizeConfig().font30(),
+                  fontWeight: FontWeight.w400,
+                  color: CustomColors.getGray600()
+                ),
+              ),
               SvgPicture.asset(
                   "assets/icons/comments_icon.svg"
               )
@@ -44,12 +51,18 @@ class CommentsSection extends GetView<PlayDetailsController> {
                     child: TextField(
                       maxLines: 10,
                       minLines: 1,
+                      style: TextStyle(
+                        fontSize: SizeConfig().font30(),
+                        fontWeight: FontWeight.w400
+                      ),
                       decoration: InputDecoration(
                           fillColor: Colors.white,
                           border: InputBorder.none,
                           hintText: "Add Comment",
                           hintStyle: TextStyle(
-                              color: CustomColors.getGray300()
+                            color: CustomColors.getGray400(),
+                            fontSize: SizeConfig().font30(),
+                            fontWeight: FontWeight.w400
                           )
                       ),
                     ),
@@ -113,14 +126,19 @@ class VideoCommentTile extends GetView<PlayDetailsController> {
                           children: [
                             TextSpan(
                                 text: "Fahmida khanom",
-                                style: TextStyle(color: CustomColors.getGray900())
+                                style: TextStyle(
+                                  color: CustomColors.getGray600(),
+                                  fontSize: SizeConfig().font30(),
+                                  fontWeight: FontWeight.w500
+                                )
                             ),
                             TextSpan(text: "    "),
                             TextSpan(
                                 text: " 2 days ago",
                                 style: TextStyle(
-                                    color: CustomColors.getGray900(),
-                                    fontSize: SizeConfig().font30()
+                                  color: CustomColors.getGray600(),
+                                  fontSize: SizeConfig().font27(),
+                                  fontWeight: FontWeight.w400
                                 )
                             )
                           ]
@@ -132,7 +150,12 @@ class VideoCommentTile extends GetView<PlayDetailsController> {
                 ),
                 SizedBox(height: SizeConfig().icon10(),),
                 Text(
-                    "হুজুরের বক্তব্য গুলো ইংরেজি তে অনুবাদ করে সারা পৃথিবীর মানুষদের কে শুনিয়ে দিতে হবে। কথা গুলো খুব দামি"
+                  "হুজুরের বক্তব্য গুলো ইংরেজি তে অনুবাদ করে সারা পৃথিবীর মানুষদের কে শুনিয়ে দিতে হবে। কথা গুলো খুব দামি",
+                  style: TextStyle(
+                    color: CustomColors.getGray700(),
+                    fontSize: SizeConfig().font30(),
+                    fontWeight: FontWeight.w400
+                  ),
                 )
               ],
             )

@@ -10,7 +10,10 @@ class LoadingContainer extends GetView<PlayListController> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+
+    print("Show Loading container: ${controller.showLoadingContainer.value}");
+
+    return Obx(() => Container(
       height: controller.showLoadingContainer.value ? 36 : 0,
       width: double.infinity,
       color: Colors.white,
@@ -19,6 +22,6 @@ class LoadingContainer extends GetView<PlayListController> {
             ? "No More Items"
             : "Loading more Items..."),
       ),
-    );
+    ));
   }
 }

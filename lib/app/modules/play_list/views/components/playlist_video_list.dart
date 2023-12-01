@@ -36,12 +36,12 @@ class PlayListVideosList extends GetView<PlayListController> {
             ),
           ),
           ListView.builder(
-              itemCount: controller.trendingVideos.value!.results!.length,
+              itemCount: controller.videoList.length,
               physics: NeverScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                TrendingVideo item = controller.trendingVideos.value!.results![index];
+                TrendingVideo item = controller.videoList[index];
                 return InkWell(
                   onTap: (){
                     Get.toNamed(

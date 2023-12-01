@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:qtec_player/app/modules/play_list/views/components/splashing_widget.dart';
 import 'package:qtec_player/data/data_sync/models/trending_video.dart';
 
 import '../controllers/play_list_controller.dart';
@@ -43,7 +44,7 @@ class PlayListStackedBody extends GetView<PlayListController> {
       // }else
         if(controller.isInitial.value==true && controller.videoList.length==0) {
           return Center(
-            child: CircularProgressIndicator(),
+            child: Splashing(),
           );
         } else if (controller.videoList.length > 0) {
           return PlayListVideosList();

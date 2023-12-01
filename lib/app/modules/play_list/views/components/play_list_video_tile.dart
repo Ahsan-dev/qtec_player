@@ -17,7 +17,7 @@ class PlayListVideoTile extends GetView<PlayListController> {
 
   @override
   Widget build(BuildContext context) {
-    TrendingVideo item = controller.trendingVideos.value!.results![index];
+    TrendingVideo item = controller.videoList[index];
     return Padding(
       padding: EdgeInsets.symmetric(vertical: SizeConfig().icon10()),
       child: Container(
@@ -26,12 +26,40 @@ class PlayListVideoTile extends GetView<PlayListController> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            FadeInImage.assetNetwork(
-              placeholder: "assets/images/video_placeholder.jpg",
-              image: item.thumbnail!,
-              imageErrorBuilder:(context, error, stackTrace) {
-                return Image.asset("assets/images/video_placeholder.jpg");
-              },
+            Stack(
+              children: [
+                FadeInImage.assetNetwork(
+                  placeholder: "assets/images/video_placeholder.jpg",
+                  image: item.thumbnail!,
+                  imageErrorBuilder:(context, error, stackTrace) {
+                    return Image.asset("assets/images/video_placeholder.jpg");
+                  },
+                ),
+                Positioned(
+                  right: SizeConfig().icon10(),
+                  bottom: SizeConfig().icon10()/1.2,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(SizeConfig().icon10()/1.5)
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      vertical: SizeConfig().icon10()/4,
+                      horizontal: SizeConfig().icon10(),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "${item.duration}",
+                        style: TextStyle(
+                          fontSize: SizeConfig().font28(),
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
             SizedBox(height: SizeConfig().icon15(),),
             Row(
@@ -106,6 +134,14 @@ class PlayListVideoTile extends GetView<PlayListController> {
                     ],
                   )
                 ),
+                Expanded(
+                  flex: 1,
+                  child: Icon(
+                    Icons.more_vert,
+                    color: CustomColors.getGray400(),
+                    size: SizeConfig().icon35(),
+                  )
+                )
               ],
             ),
             SizedBox(height: SizeConfig().icon15(),),

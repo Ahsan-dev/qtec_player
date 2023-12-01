@@ -32,8 +32,8 @@ class TrendingVideosData {
 
 
 class Links {
-  String? next;
-  String? previous;
+  int? next;
+  int? previous;
 
   Links({
     this.next,

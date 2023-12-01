@@ -4,6 +4,8 @@ import '../modules/play_details/bindings/play_details_binding.dart';
 import '../modules/play_details/views/play_details_view.dart';
 import '../modules/play_list/bindings/play_list_binding.dart';
 import '../modules/play_list/views/play_list_view.dart';
+import '../modules/play_next/bindings/play_next_binding.dart';
+import '../modules/play_next/views/play_next_view.dart';
 
 part 'app_routes.dart';
 
@@ -22,6 +24,11 @@ class AppPages {
       name: _Paths.PLAY_DETAILS,
       page: () => const PlayDetailsView(),
       binding: PlayDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.PLAY_NEXT,
+      page: () => const PlayNextView(),
+      binding: PlayNextBinding(),
     ),
   ];
 }

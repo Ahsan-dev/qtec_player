@@ -39,6 +39,10 @@ class CustomColors {
     return Get.context?.isDarkMode==true? Color(0xFFE2E8F0):Color(0xFFE2E8F0);
   }
 
+  static Color getGray400(){
+    return Get.context?.isDarkMode==true? Color(0xFFCBD5E0):Color(0xFFCBD5E0);
+  }
+
   static Color getSimiBlack(){
     return Get.context?.isDarkMode==true? Color(0xFF72777B):Color(0xFF72777B);
   }

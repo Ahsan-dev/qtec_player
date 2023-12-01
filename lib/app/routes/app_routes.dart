@@ -5,10 +5,12 @@ abstract class Routes {
   Routes._();
   static const PLAY_LIST = _Paths.PLAY_LIST;
   static const PLAY_DETAILS = _Paths.PLAY_DETAILS;
+  static const PLAY_NEXT = _Paths.PLAY_NEXT;
 }
 
 abstract class _Paths {
   _Paths._();
   static const PLAY_LIST = '/play-list';
   static const PLAY_DETAILS = '/play-details';
+  static const PLAY_NEXT = '/play-next';
 }

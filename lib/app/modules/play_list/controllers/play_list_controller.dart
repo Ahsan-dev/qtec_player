@@ -47,7 +47,13 @@ class PlayListController extends GetxController {
       if(xcrollController.position.pixels == xcrollController.position.maxScrollExtent) {
         page.value++;
         showLoadingContainer.value = true;
-        getTrendingVideos();
+        if(videoList.length < totalData.value)
+          getTrendingVideos();
+        else{
+          Future.delayed(Duration(seconds: 1)).then((value) {
+            showLoadingContainer.value = false;
+          });
+        }
       }
     });
   }
