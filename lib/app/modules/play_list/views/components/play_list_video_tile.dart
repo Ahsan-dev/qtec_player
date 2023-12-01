@@ -28,13 +28,16 @@ class PlayListVideoTile extends GetView<PlayListController> {
           children: [
             Stack(
               children: [
-                FadeInImage.assetNetwork(
-                  placeholder: "assets/images/video_placeholder.jpg",
-                  image: item.thumbnail!,
-                  imageErrorBuilder:(context, error, stackTrace) {
-                    return Image.asset("assets/images/video_placeholder.jpg");
-                  },
-                ),
+                if(item.thumbnail != null)
+                  FadeInImage.assetNetwork(
+                    placeholder: "assets/images/video_placeholder.jpg",
+                    image: item.thumbnail!,
+                    imageErrorBuilder:(context, error, stackTrace) {
+                      return Image.asset("assets/images/video_placeholder.jpg");
+                    },
+                  )
+                else
+                  Image.asset("assets/images/video_placeholder.jpg"),
                 Positioned(
                   right: SizeConfig().icon10(),
                   bottom: SizeConfig().icon10()/1.2,
