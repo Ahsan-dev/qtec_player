@@ -1,6 +1,7 @@
-# qtec_player
+# Qtec Player
 
-A new Flutter project.
+A new Flutter project for the assesment task getting from QTec Solutions implemented a video player with videos list.
+
 
 ## Getting Started
 
